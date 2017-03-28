@@ -104,16 +104,46 @@ void RadixSort<T>::radixSortDesc(T** sort, int n, int num_chars, char (*getRadix
       //DO THIS
 		for (int j = 0; j < n; j++)
 		{
-			//
-			char ascii = (*getRadixChar) (sort[j], i);
+			//ascii conversion initialization
+			int ascii_index;
+			char ascii = (*getRadixChar) (sort[j], i); //get the current element
 			
+			//ascii conversion
+			//48-57 = numbers, 97-122 = lowercase letters, 65-90 uppercase letters
+			if (ascii >= 48 && ascii <= 57)
+			{
+				ascii_index = ascii - 47; //numbers
+			}
+			else if (ascii >= 97 && ascii <= 122)
+			{
+				ascii_index = ascii - 86; //lowercase letters
+			}
+			else if (ascii >= 65 && ascii <= 90)
+			{
+				ascii_index = ascii - 54; //uppercase letters
+			}
+			
+			else
+			{
+				ascii_index = 0; //unknown/special characters
+			}
+			
+			//adds back to the queue
+			bins[ascii_index]->enqueue(sort[j]);
 		}
 
-
-
-
-
-
+		int counter = 0;
+	
+		//remove all item and it is then sorted
+		//num_queues - 1 for indexing
+		for (int l = num_queues - 1; l >= 0; l--)
+		{
+			while (!bins[i]->isEmpty())
+			{
+				sort[counter] = bins[i]->dequeue();
+				count++;
+			}
+		}
    }
 
    for (int i = 0; i < num_queues; i++) 
