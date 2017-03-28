@@ -19,16 +19,31 @@ template < class T >
 T** RadixSort<T>::radixSort(T** unsorted, int num_to_sort, int num_chars, bool asc, char (*getRadixChar) (T* item, int index))
 {
    //DO THIS
+	T** sorter = new T*[num_to_sort];
+	
+	//copy unsorted and prepare for sort
+	for (int i = 0; i < num_to_sort; i++)
+   {
+		sorter[i] = unsorted[i];
+   }
+   
+   if (asc) //ascending
+   {
+		radixSortAsc(sorter, num_to_sort, num_chars, getRadixChar); 
+   }
+   else //descending
+   {
+		radixSortDesc(sorter, num_to_sort, num_chars, getRadixChar);
+   }
 
-
-
+	return sorter;
 }
 
 template < class T >
 void RadixSort<T>::radixSortAsc(T** sort, int n, int num_chars, char (*getRadixChar) (T* st, int index))
 {
    //DO THIS
-
+	
 
 
 
