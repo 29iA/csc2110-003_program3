@@ -43,29 +43,48 @@ template < class T >
 void RadixSort<T>::radixSortAsc(T** sort, int n, int num_chars, char (*getRadixChar) (T* st, int index))
 {
    //DO THIS
+	//root bin for all items in sort[]
+	QueueLinked<T>* bin = new QueueLinked<T>();
 	
+	//add all elements in sort[] to bin
+   for (int i = 0; i < n; i++)
+   {
+		bin->enqueue(sort[i]);
+   }
+	
+	//int n being 1-based
+   binSort(bin, 1, num_chars, getRadixChar);
 
+	//add the sorted content from binSort back to sort[]
+   for (int i = 0; i < n; i++)
+   {
+		sort[i] = bin->dequeue();
+   }
 
-
-
-
-
+   delete bin;
 }
 
 template < class T >
 void RadixSort<T>::binSort(QueueLinked<T>* bin, int curr_char, int num_chars, char (*getRadixChar) (T* st, int index))
 {
    //DO THIS
-
-
-
-
-
-
-
-
-
-
+	///error-checking
+	if (curr_char > num_chars || bin->isEmpty())
+   {
+	   return;
+   }
+	
+	//num_queues being the range of digits/letters/s.characters
+	int num_queues = 37;
+	QueueLinked<T>** bins = new QueueLinked<T>*[num_queues];
+	
+	//instantiate each of the queues
+	for (int i = 0; i < num_queues; i++)
+   {
+		bins[i] = new QueueLinked<T>();
+   }
+	
+	//TODO
 }
 
 template < class T >
@@ -77,13 +96,18 @@ void RadixSort<T>::radixSortDesc(T** sort, int n, int num_chars, char (*getRadix
    //must instantiate each of the queues
    for (int i = 0; i < num_queues; i++)
    {
-      //DO THIS
+      bins[i] = new QueueLinked<T>();
    }
 
    for (int i = num_chars; i > 0; i--)  //number of times to bin stuff
    {
       //DO THIS
-
+		for (int j = 0; j < n; j++)
+		{
+			//
+			char ascii = (*getRadixChar) (sort[j], i);
+			
+		}
 
 
 
