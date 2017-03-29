@@ -84,7 +84,28 @@ void RadixSort<T>::binSort(QueueLinked<T>* bin, int curr_char, int num_chars, ch
 		bins[i] = new QueueLinked<T>();
    }
 	
-	//TODO
+	for (int i = 0; i < num_queues; i++)
+	{
+		//TODO
+	}
+	
+	for (int i = 0; i < num_queues; i++)
+   {
+		//recursively calls binSort again
+	   binSort(bins[i], curr_char + 1, num_chars, getRadixChar);
+	   
+	   while (!bins[i]->isEmpty())
+	   {
+		   bin->enqueue(bins[i]->dequeue()); //add to main bin
+	   }
+   }
+   
+   for (int i = 0; i < num_queues; i++)
+   {
+	   delete bins[i];
+   }
+	
+   delete[] bins;
 }
 
 template < class T >
