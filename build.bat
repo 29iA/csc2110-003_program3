@@ -1,5 +1,6 @@
 @echo off
 cls
+del *.o
 
 ::Set drive letter if no args given
 if [%1] == [] goto noArgs
