@@ -2,6 +2,7 @@
 #define RADIXSORT_H
 
 #include "QueueLinked.h"
+using CSC2110::QueueLinked;
 
 template < class T >
 class RadixSort
@@ -88,7 +89,7 @@ void RadixSort<T>::binSort(QueueLinked<T>* bin, int curr_char, int num_chars, ch
 	{
 		//ascii conversion initialization
 		int ascii_index;
-		char ascii = (*getRadixChar) (sort[j], i); //get the current element
+		char ascii = (*getRadixChar) (bin->peek, curr_char); //get the current element
 	
 		//ascii conversion
 		//48-57 = numbers, 97-122 = lowercase letters, 65-90 uppercase letters
@@ -187,7 +188,7 @@ void RadixSort<T>::radixSortDesc(T** sort, int n, int num_chars, char (*getRadix
 			while (!bins[i]->isEmpty())
 			{
 				sort[counter] = bins[i]->dequeue();
-				count++;
+				counter++;
 			}
 		}
    }
