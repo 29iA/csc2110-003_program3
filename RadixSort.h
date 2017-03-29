@@ -44,7 +44,7 @@ template < class T >
 void RadixSort<T>::radixSortAsc(T** sort, int n, int num_chars, char (*getRadixChar) (T* st, int index))
 {
    //DO THIS
-	//root bin for all items in sort[]
+	//main bin for all items in sort[]
 	QueueLinked<T>* bin = new QueueLinked<T>();
 	
 	//add all elements in sort[] to bin
@@ -87,34 +87,37 @@ void RadixSort<T>::binSort(QueueLinked<T>* bin, int curr_char, int num_chars, ch
 	
 	for (int i = 0; i < num_queues; i++)
 	{
-		//ascii conversion initialization
-		int ascii_index;
-		char ascii = (*getRadixChar) (bin->peek, curr_char); //get the current element
-	
-		//ascii conversion
-		//48-57 = numbers, 97-122 = lowercase letters, 65-90 uppercase letters
-		if (ascii >= 48 && ascii <= 57)
+		while (!bin->isEmpty())
 		{
-			ascii_index = ascii - 47; //numbers
-		}
-		else if (ascii >= 97 && ascii <= 122)
-		{
-			ascii_index = ascii - 86; //lowercase letters
-		}
-		else if (ascii >= 65 && ascii <= 90)
-		{
-			ascii_index = ascii - 54; //uppercase letters
-		}
+			//ascii conversion initialization
+			int ascii_index;
+			char ascii = (*getRadixChar) (bin->peek(), curr_char); //get the current element
+		
+			//ascii conversion
+			//48-57 = numbers, 97-122 = lowercase letters, 65-90 uppercase letters
+			if (ascii >= 48 && ascii <= 57)
+			{
+				ascii_index = ascii - 47; //numbers
+			}
+			else if (ascii >= 97 && ascii <= 122)
+			{
+				ascii_index = ascii - 86; //lowercase letters
+			}
+			else if (ascii >= 65 && ascii <= 90)
+			{
+				ascii_index = ascii - 54; //uppercase letters
+			}
 
-		else
-		{
-			ascii_index = 0; //unknown/special characters
-		}
+			else
+			{
+				ascii_index = 0; //unknown/special characters
+			}
 			
-		//take item from main bin into sorter bins
-		bins[ascii_index]->enqueue(dequeue());
+			//take item from main bin into sorter bins
+			bins[ascii_index]->enqueue(bin->dequeue());
+		}
 	}
-	
+
 	for (int i = 0; i < num_queues; i++)
    {
 		//recursively calls binSort again
@@ -185,9 +188,9 @@ void RadixSort<T>::radixSortDesc(T** sort, int n, int num_chars, char (*getRadix
 		//num_queues - 1 for indexing
 		for (int l = num_queues - 1; l >= 0; l--)
 		{
-			while (!bins[i]->isEmpty())
+			while (!bins[l]->isEmpty())
 			{
-				sort[counter] = bins[i]->dequeue();
+				sort[counter] = bins[l]->dequeue();
 				counter++;
 			}
 		}
