@@ -8,11 +8,29 @@ template < class T >
 class RadixSort
 {
    private:
-      static void binSort(QueueLinked<T>* bin, int curr_char, int num_chars, char (*getRadixChar) (T* item, int index));
-      static void radixSortAsc(T** sort, int n, int num_chars, char (*getRadixChar) (T* item, int index));  //algorithm 1
-      static void radixSortDesc(T** sort, int n, int num_chars, char (*getRadixChar) (T* item, int index));  //algorithm 2
+	/*
+		Pre: bin is the queue holding the content, curr_char is the character that is compared by binSort every recursive call, num_chars is the number of characters, and getRadixChar is the static method pointer for comparison of item.
+		Post: sorts through with recursion and arrange the items as it's being compared
+	*/
+		static void binSort(QueueLinked<T>* bin, int curr_char, int num_chars, char (*getRadixChar) (T* item, int index));
+
+	/*
+		Pre: sort is the unsorted list's copy, n is the number of items on list, num_chars is the amount of characters, and getRadixChar is the static method pointer for comparison of item.
+		Post: list gets arranged in ascending order via adding the content into QueueLinked and using binSort recursion.
+	*/
+		static void radixSortAsc(T** sort, int n, int num_chars, char (*getRadixChar) (T* item, int index));  //algorithm 1
+     
+	/*
+		Pre: sort is the unsorted list's copy, n is the number of items on list, num_chars is the amount of characters, and getRadixChar is the static method pointer for comparison of item.
+		Post: list gets arranged in descending order via adding the content into QueueLinked and using comparison.
+	*/
+		static void radixSortDesc(T** sort, int n, int num_chars, char (*getRadixChar) (T* item, int index));  //algorithm 2
  
    public:
+	/*
+		Pre: sort is a list of the datatype <T>, num_to_sort is the number of items the list have, num_chars is the amount of characters, asc sees if it'll sort in ascending (true) or descending (false) order based on user's choice, and getRadixChar is the static method pointer for comparison of item.
+		Post: creates a copy of the original list, sorts the new list (based on asc parameter), and returns the sorted list.
+	*/
       static T** radixSort(T** sort, int num_to_sort, int num_chars, bool asc, char (*getRadixChar) (T* item, int index));
 };
 
