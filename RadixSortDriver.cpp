@@ -41,43 +41,65 @@ int main()
    delete iter;
 
    //DO THIS
-	
-//////////////TESTING CLAUSE
-   //test both radix sort methods using the cds array
 	//test both radix sort methods using the cds array
-   cout << "Sorting CD list in ascending order...";
-   CD** ascSortedCDs = RadixSort<CD>::radixSort(cds, size, 100, true, &CD::getRadixChar);
-   
-   cout << "done!" << endl;
-   cout << "Press ENTER to display ascending CD list." << endl;
-   cin.get();
-   
-   // Display items in ascending order
-   for (int i = 0; i < size; i++)
+	
+	//creates new array
+	CD** array = new CD*[size];
+	
+	//calls radixSort with ascending algorithm
+	cout << "Sorting method 1: Ascending.\n";
+	array = RadixSort<CD>::radixSort(cds, size, 42, true, &CD::getRadixChar);
+	
+	//displaying results
+	cout << "Ready to display. Press ENTER to continue...";
+	cin.get();
+	
+	//re-instantiating iterator
+	iter = list->iterator();
+	count = 0;
+	
+	//displaying...
+	while (iter->hasNext())
    {
-	   CD* currCD = ascSortedCDs[i];
-	   String* CDKey = currCD->getKey();
-	   CDKey->displayString();
+	   CD* next = iter->next();
+		CD* c = array[count];
+	   String* key = c->getKey();
+	   key->displayString();
 	   cout << endl;
+		count++;
    }
-   cout << endl;
-   
-   cout << "Sorting CD list in desceding order...";
-   CD** descSortedCDs = RadixSort<CD>::radixSort(cds, size, 100, false, &CD::getRadixChar);
-   
-   cout << "done!" << endl;
-   cout << "Press ENTER to display descending CD list." << endl;
-   cin.get();
-   
-   // Display items in descending order
-   for (int i = 0; i < size; i++)
+	
+	delete iter;
+	cout << endl;
+	
+	//calls radixSort with descending algorithm
+	cout << "Sorting method 2: Descending.\n";
+	array = RadixSort<CD>::radixSort(cds, size, 42, false, &CD::getRadixChar);
+	
+	//displaying results
+	cout << "Ready to display. Press ENTER to continue...";
+	cin.get();
+	
+	//re-instantiating iterator
+	iter = list->iterator();
+	count = 0;
+	
+	//displaying...
+	while (iter->hasNext())
    {
-	   CD* currCD = descSortedCDs[i];
-	   String* CDKey = currCD->getKey();
-	   CDKey->displayString();
+	   CD* next = iter->next();
+		CD* c = array[count];
+	   String* key = c->getKey();
+	   key->displayString();
 	   cout << endl;
+		count++;
    }
-//////////////TESTING CLAUSE
+	
+	delete iter;
+	cout << endl;
+	
+	cout << "Sorting completed. Press ENTER to finish...";
+	cin.get();
 
    delete[] cds;
 
